@@ -6,3 +6,17 @@
 }
 
 @model LoginViewModel
+
+<form asp-controller="Login" asp-action="Login" method="post">
+    <div class="row" style="margin-top:20px;">
+        <div class="col-md-4 offset-4">
+            <span asp-validation-for="Validation" class="text-danger"></span>
+            <span asp-validation-for="Email" class="text-danger"></span>
+            <input asp-for="Email" type="text" class="form-control login-margin" placeholder="Email" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+            <input asp-for="Password" type="password" class="form-control login-margin" placeholder="Şifre" />
+            <button class="btn btn-success pull-right" name="submit" type="submit" value="Login">Giriş Yap</button>
+            <a class="btn btn-primary float-right" asp-controller="Login" asp-action="Register" style="margin-right:5px;">Kayıt Ol</a>
+        </div>
+    </div>
+</form>

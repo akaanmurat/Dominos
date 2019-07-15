@@ -30,6 +30,28 @@ namespace Dominos.Web.UI.Business
             get { return httpContext.Session.Id; }
         }
 
+        public int? CustomerId
+        {
+            get
+            {
+                var customerId = Customer?.CustomerId;
+
+                if (customerId == null)
+                {
+                    try
+                    {
+                        customerId = Convert.ToInt32(_cookie.Get(CookieKey.CustomerId));
+                    }
+                    catch (Exception)
+                    {
+
+                    }
+                }
+
+                return customerId;
+            }
+        }
+
         public CustomerOutputDTO Customer
         {
             get
@@ -39,7 +61,7 @@ namespace Dominos.Web.UI.Business
                 {
                     try
                     {
-                        var customerId = Convert.ToInt32(_cookie.Get<string>(CookieKey.CustomerId));
+                        var customerId = Convert.ToInt32(_cookie.Get(CookieKey.CustomerId));
                         if (customerId != default(int))
                         {
                             var url = $"{_config.DominosApiUrl}{_config.CustomerServices.GetCustomer}?customerId={customerId}";
@@ -77,6 +99,21 @@ namespace Dominos.Web.UI.Business
         public void End()
         {
             httpContext.Session.Clear();
+        }
+
+        public string BasketKey
+        {
+            get
+            {
+                var cookieBasketKey = _cookie.Get(CookieKey.CustomerId);
+                if (cookieBasketKey == null)
+                {
+                    cookieBasketKey = SessionId;
+                    _cookie.Set(CookieKey.CustomerId, cookieBasketKey);
+                }
+
+                return cookieBasketKey;
+            }
         }
     }
 }

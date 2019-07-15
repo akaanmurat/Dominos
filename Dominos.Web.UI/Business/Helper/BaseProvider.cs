@@ -19,7 +19,7 @@ namespace Dominos.Web.UI.Business.Helper
         {
             get
             {
-                return Session.Get<CustomerOutputDTO>(SessionKey.Customer);
+                return Session.Customer;
             }
         }
 
@@ -27,21 +27,7 @@ namespace Dominos.Web.UI.Business.Helper
         {
             get
             {
-                var customerId = Customer?.CustomerId;
-
-                if (customerId == null)
-                {
-                    try
-                    {
-                        customerId = Convert.ToInt32(Cookie.Get<string>(CookieKey.CustomerId));
-                    }
-                    catch (Exception)
-                    {
-
-                    }
-                }
-
-                return customerId;
+                return Session.CustomerId;
             }
         }
 
@@ -49,14 +35,7 @@ namespace Dominos.Web.UI.Business.Helper
         {
             get
             {
-                var cookieBasketKey = Cookie.Get<string>(CookieKey.CustomerId);
-                if (cookieBasketKey == null)
-                {
-                    cookieBasketKey = Session.SessionId;
-                    Cookie.Set(CookieKey.CustomerId, cookieBasketKey);
-                }
-
-                return cookieBasketKey;
+                return Session.BasketKey;
             }
         }
     }

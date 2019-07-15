@@ -1,8 +1,20 @@
-﻿@{
-    var quantity = 3;
+﻿@using Dominos.Common.Classes;
+@using Dominos.Common.DTO.Output;
+@using Dominos.Common.Helpers;
+@using Dominos.Common.Configuration;
+@using Dominos.Web.UI.Business
+@using Microsoft.Extensions.Options;
+
+@inject IOptions<DominosConfig> Config
+@inject SessionHelper Session
+
+@{
+    var url = Session.CustomerId == null ? $"{Config.Value.DominosApiUrl}{Config.Value.BasketServices.GetBasket}?basketKey={Session.BasketKey}"
+                                                    : $"{Config.Value.DominosApiUrl}{Config.Value.BasketServices.GetBasket}?customerId={Session.CustomerId}";
+    var basket = HttpHelper.Get<ResponseEntity<BasketOutputDTO>>(url)?.Result;
 }
 
-<button class="btn basket-button">
+<a asp-controller="Basket" asp-action="Index" class="btn basket-button">
     <img src="~/images/Asset 3.png" />
-    @quantity
-</button>
+    @(basket?.BasketDetails?.Sum(x => x.Quantity) ?? default(int))
+</a>

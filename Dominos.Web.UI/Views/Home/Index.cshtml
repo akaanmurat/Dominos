@@ -8,11 +8,12 @@
 @model HomeViewModel
 
 <form asp-controller="Home" asp-action="Index" method="post">
+    <input asp-for="AddedProductId" type="hidden" id="AddedProductId" />
     <div class="col-md-12 bg-red text-center" style="height:382px;">
         <img src="~/images/Asset 1.png" style="margin-top:54px;" />
     </div>
     <div class="col-lg-8 offset-2 border" style="height:900px;">
-        <div class="row">
+        <div class="row" style="margin-top:15px; margin-left:15px;">
             <h3>Pizzalar</h3>
         </div>
         <div class="row">
@@ -28,7 +29,7 @@
                                 <b class="product-name">@product.ProductName</b>
                                 <p class="product-description">@product.Description</p>
                                 <h5 class="pull-left product-price">@product.Price TL</h5>
-                                <button class="btn btn-success pull-right product-button">Sepete Ekle</button>
+                                <button class="btn btn-success pull-right product-button" name="submit" type="submit" value="AddBasket" onclick="$('#AddedProductId').val('@product.ProductId')">Sepete Ekle</button>
                             </div>
                         </div>
                     </div>

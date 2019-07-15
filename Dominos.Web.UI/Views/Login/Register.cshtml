@@ -6,3 +6,23 @@
 }
 
 @model RegisterViewModel
+
+<form asp-controller="Login" asp-action="Register" method="post">
+    <div class="row" style="margin-top:20px;">
+        <div class="col-md-4 offset-4">
+            <span asp-validation-for="Validation" class="text-danger"></span>
+            <span asp-validation-for="Email" class="text-danger"></span>
+            <input asp-for="Email" type="text" class="form-control login-margin" placeholder="Email" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+            <input asp-for="Password" type="password" class="form-control login-margin" placeholder="Şifre" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+            <input asp-for="Name" type="text" class="form-control login-margin" placeholder="İsim" />
+            <span asp-validation-for="Surname" class="text-danger"></span>
+            <input asp-for="Surname" type="text" class="form-control login-margin" placeholder="Soyisim" />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            <input asp-for="PhoneNumber" type="text" class="form-control login-margin" placeholder="Telefon Numarası" />
+            <button class="btn btn-success pull-right" name="submit" type="submit" value="Register">Üye Ol</button>
+            <a class="btn btn-primary float-right" asp-controller="Login" asp-action="Login" style="margin-right:5px;">Giriş Yap</a>
+        </div>
+    </div>
+</form>

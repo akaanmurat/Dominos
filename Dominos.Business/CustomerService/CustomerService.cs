@@ -93,6 +93,7 @@ namespace Dominos.Business.CustomerService
                     customer.Password = input.Password;
                     customer.Name = input.Name;
                     customer.Surname = input.Surname;
+                    customer.PhoneNumber = input.PhoneNumber;
                     await _customerRepository.UpdateAsync(customer);
 
                     response.Result = new CustomerOutputDTO
@@ -100,7 +101,8 @@ namespace Dominos.Business.CustomerService
                         CustomerId = customer.Id,
                         Email = customer.Email,
                         Name = customer.Name,
-                        Surname = customer.Surname
+                        Surname = customer.Surname,
+                        PhoneNumber = customer.PhoneNumber
                     };
                 }
                 else if (customer?.IsActive == true)
@@ -117,7 +119,8 @@ namespace Dominos.Business.CustomerService
                         Surname = input.Surname,
                         IsActive = true,
                         CreateDate = DateTime.Now,
-                        Password = input.Password
+                        Password = input.Password,
+                        PhoneNumber = input.PhoneNumber
                     };
                     await _customerRepository.InsertAsync(customer);
 
@@ -126,7 +129,8 @@ namespace Dominos.Business.CustomerService
                         CustomerId = customer.Id,
                         Email = customer.Email,
                         Name = customer.Name,
-                        Surname = customer.Surname
+                        Surname = customer.Surname,
+                        PhoneNumber = customer.PhoneNumber
                     };
                 }
             }

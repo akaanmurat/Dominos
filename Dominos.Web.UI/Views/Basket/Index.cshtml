@@ -8,5 +8,55 @@
 @model BasketViewModel
 
 <form asp-controller="Basket" asp-action="Index" method="post">
+    <input asp-for="AddedProductId" type="hidden" id="AddedProductId" />
+    <div class="row" style="margin-top:10px;">
+        <div class="col-md-4 offset-4">
+            <div class="row">
+                <h4>Sepet</h4>
+            </div>
+            <div class="row text-center" style="background-color:white; border-radius:25px;">
+                @{
+                    if (Model?.BasketDetails?.Any() == true)
+                    {
+                        foreach (var basketProducts in Model?.BasketDetails)
+                        {
+                            <div class="col-md-3 text-center" style="padding-top:10px;">
+                                @basketProducts.ProductName
+                            </div>
+                            <div class="col-md-2 border-left" style="color:orange; padding-top:10px;">
+                                @(basketProducts.Price * basketProducts.Quantity) TL
+                            </div>
+                            <div class="col-md-7 border-left pull-right">
+                                <button name="submit" type="submit" value="Decrease" class="btn btn-light" onclick="$('#AddedProductId').val('@basketProducts.ProductId')"><b>-</b></button>
+                                @basketProducts.Quantity
+                                <button name="submit" type="submit" value="Increase" class="btn btn-light" onclick="$('#AddedProductId').val('@basketProducts.ProductId')"><b>+</b></button>
+                                <button name="submit" type="submit" value="Delete" class="btn btn-light" onclick="$('#AddedProductId').val('@basketProducts.ProductId')"><img src="~/images/Asset 5.png" /></button>
+                            </div>
+                        }
 
+                        <div class="col-md-12 border-top" style="margin-top:10px;">
+                            <div class="row">
+                                <div class="col-md-9 text-left"><b>Sepet Toplamı</b></div>
+                                <div class="col-md-3 text-right">@Model.BasketDetails.Sum(x => x.Price * x.Quantity) TL</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-9 text-left"><b>İndirim</b></div>
+                                <div class="col-md-3 text-right">@Model.DiscountPrice TL</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-9 text-left"><b>Toplam</b></div>
+                                <div class="col-md-3 text-right">@Model.TotalPrice TL</div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="row border basket-radius">
+                            <h3>Sepetinizde ürün bulunamadı.</h3>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
 </form>

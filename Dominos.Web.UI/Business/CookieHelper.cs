@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using Dominos.Common.Constants;
 using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
-using System.Security.Claims;
+using System;
 
 namespace Dominos.Web.UI.Business
 {
@@ -15,34 +13,34 @@ namespace Dominos.Web.UI.Business
 
         private readonly HttpContext httpContext;
 
-        public void Set<T>(string key, T value)
+        public void Set(string key, string value)
         {
-            var jsonValue = JsonConvert.SerializeObject(value);
-            var claimsPrincipal = CreateCookieClaims(key, jsonValue);
-            httpContext.SignInAsync(
-                CookieAuthenticationDefaults.AuthenticationScheme,
-                claimsPrincipal
-            );
+            httpContext.Response.Cookies.Delete(key);
+            httpContext.Response.Cookies.Append(key, value, new CookieOptions
+            {
+                Expires = DateTime.Now.AddMonths(1)
+            });
         }
 
-        public T Get<T>(string key)
+        public string Get(string key)
         {
-            var jsonValue = httpContext.Request.Cookies[key];
+            string value = null;
 
-            return JsonConvert.DeserializeObject<T>(jsonValue);
+            try
+            {
+                value = httpContext.Request.Cookies[key].ToString();
+            }
+            catch (Exception)
+            {
+
+            }
+
+            return value;
         }
 
-        public void Remove()
+        public void Remove(string key)
         {
-            httpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        }
-
-        private ClaimsPrincipal CreateCookieClaims(string key, string value)
-        {
-            var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
-            identity.AddClaim(new Claim(key, value));
-
-            return new ClaimsPrincipal(identity);
-        }
+            httpContext.Response.Cookies.Delete(key);
+        }        
     }
 }

@@ -40,7 +40,7 @@ namespace Dominos.Business.BasketService
             {
                 List<BasketDetailOutputDTO> basketdetails = await GetBasketDetails(customerId, basketKey);
 
-                if (basketdetails != null || basketdetails.Any())
+                if (basketdetails == null || !basketdetails.Any())
                 {
                     return response;
                 }
@@ -52,6 +52,7 @@ namespace Dominos.Business.BasketService
                 {
                     var customerOrders = await _orderRepository.GetOrderList(customerId.Value);
                     discountPrice = customerOrders?.Result?.Any() == true ? discountPrice : totalPrice * 5 / 100;
+                    discountPrice = Math.Round(discountPrice, 2);
                 }
 
                 totalPrice = totalPrice - discountPrice;
@@ -111,7 +112,7 @@ namespace Dominos.Business.BasketService
                     return response;
                 }
 
-                var basket = await _basketRepository.Table.FirstAsync(x => x.CustomerId == input.CustomerId || x.BasketKey == input.BasketKey);
+                var basket = await _basketRepository.FirstAsync(x => x.CustomerId == input.CustomerId || x.BasketKey == input.BasketKey);
                 if (basket == null)
                 {
                     basket = new Basket

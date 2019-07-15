@@ -19,6 +19,8 @@ namespace Dominos.Web.UI.Business.Helper.Basket.Providers
                                        ProductId = model.AddedProductId
                                    },
                                    url)?.Result;
+
+            FillBasketList(model);
         }
     }
 }

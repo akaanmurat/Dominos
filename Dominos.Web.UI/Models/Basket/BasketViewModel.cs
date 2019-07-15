@@ -13,5 +13,6 @@ namespace Dominos.Web.UI.Models.Basket
         public double TotalPrice { get; set; }
         public double DiscountPrice { get; set; }
         public List<BasketDetailOutputDTO> BasketDetails { get; set; }
+        public int AddedProductId { get; set; }
     }
 }

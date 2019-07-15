@@ -15,5 +15,8 @@
     public class BasketServiceUrl
     {
         public string GetBasket { get; set; }
+        public string AddProductToBasket { get; set; }
+        public string DecreaseProductFromBasket { get; set; }
+        public string DeleteProductFromBasket { get; set; }
     }
 }

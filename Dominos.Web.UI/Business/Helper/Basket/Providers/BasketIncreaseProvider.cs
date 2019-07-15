@@ -1,13 +1,13 @@
 ﻿using Dominos.Common.Classes;
 using Dominos.Common.DTO.Input;
 using Dominos.Common.Helpers;
-using Dominos.Web.UI.Models.Home;
+using Dominos.Web.UI.Models.Basket;
 
-namespace Dominos.Web.UI.Business.Helper.Home.Providers
+namespace Dominos.Web.UI.Business.Helper.Basket.Providers
 {
-    public class AddBasketProvider : BaseHomeProvider, IProvider<HomeViewModel>
+    public class BasketIncreaseProvider : BaseBasketProvider, IProvider<BasketViewModel>
     {
-        public void Execute(HomeViewModel model)
+        public void Execute(BasketViewModel model)
         {
             var url = $"{Config.DominosApiUrl}{Config.BasketServices.AddProductToBasket}";
 
@@ -19,8 +19,6 @@ namespace Dominos.Web.UI.Business.Helper.Home.Providers
                                        ProductId = model.AddedProductId
                                    },
                                    url)?.Result;
-
-            FillProductsToModel(model);
         }
     }
 }

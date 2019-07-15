@@ -13,7 +13,7 @@ namespace Dominos.Web.UI.Business.Helper.Home
             switch (submit)
             {
                 case HomeSubmits.List:
-                    Provider = new HomeProvider();
+                    Provider = new HomeListProvider();
                     break;
             }
 

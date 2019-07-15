@@ -1,0 +1,39 @@
+﻿@using Dominos.Web.UI.Models.Home;
+
+@{
+    ViewData["Title"] = "Tüm Pizzlar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model HomeViewModel
+
+<form asp-controller="Home" asp-action="Index" method="post">
+    <div class="col-md-12 bg-red text-center" style="height:382px;">
+        <img src="~/images/Asset 1.png" style="margin-top:54px;" />
+    </div>
+    <div class="col-lg-8 offset-2 border" style="height:900px;">
+        <div class="row">
+            <h3>Pizzalar</h3>
+        </div>
+        <div class="row">
+            @{
+                foreach (var product in Model?.ProductList)
+                {
+                    <div class="col-md-4 home-product">
+                        <div class="border border-dominos rounded">
+                            <div class="col-md-12 m-0 p-0">
+                                <img class="border-top embed-responsive pizza-image" src="@product.ImagePath" />
+                            </div>
+                            <div class="product-detail">
+                                <b class="product-name">@product.ProductName</b>
+                                <p class="product-description">@product.Description</p>
+                                <h5 class="pull-left product-price">@product.Price TL</h5>
+                                <button class="btn btn-success pull-right product-button">Sepete Ekle</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</form>

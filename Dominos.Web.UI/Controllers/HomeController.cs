@@ -38,7 +38,7 @@ namespace Dominos.Web.UI.Controllers
             var instance = new HomeInstance(this, ModelState, submit, _dominosConfig, _session, _cookie);
             instance.Provider.Execute(model);
 
-            return RedirectToAction("Index", "Basket");
+            return View(model);
         }
     }
 }
